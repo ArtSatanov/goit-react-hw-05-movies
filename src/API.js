@@ -9,5 +9,5 @@ axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 
 export async function fetchTrending() {
   const response = await axios.get(TRANDING);
-  console.log(response.data);
+  console.log(response.data.results);
 }
