@@ -1,3 +1,7 @@
+import { fetchTrending } from '../../API';
+
 export const NotFound = () => {
-  return <div>Page Not Found !</div>;
+  fetchTrending();
+  return;
+  <div>Page Not Found !</div>;
 };

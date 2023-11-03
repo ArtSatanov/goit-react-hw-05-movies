@@ -1,3 +1,3 @@
 export const Cast = () => {
-  return;
+  return <div>1</div>;
 };
