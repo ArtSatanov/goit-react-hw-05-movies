@@ -1,14 +1,16 @@
-import { Link } from 'react-router-dom';
+import { MoviesItem } from 'components/MovieItem';
 
-export const MoviesList = ({ response }) => {
+export const MoviesList = ({ moviesList }) => {
   return (
     <div>
       <ul>
-        {response.map(resp => (
+        {moviesList.map(resp => (
           <li key={resp.id}>
-            <Link to={`movies/: ${resp.id}`}>
-              {resp.name} ?? {resp.title}
-            </Link>
+            <MoviesItem
+              id={resp.id}
+              title={resp.title ?? resp.name}
+              poster={resp.backdrop_path}
+            />
           </li>
         ))}
       </ul>
