@@ -1,1 +1,0 @@
-{"version":3,"file":"static/js/278.edb04266.chunk.js","mappings":"kLAAO,IAAMA,EAAS,WAEtB,C","sources":["pages/Movies/Movies.jsx"],"sourcesContent":["export const Movies = () => {\n  return;\n};\n"],"names":["Movies"],"sourceRoot":""}
