@@ -10,12 +10,10 @@ axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 
 export async function fetchTrending() {
   const response = await axios.get(TRANDING);
-  console.log(response.data.results);
   return response.data.results;
 }
 
-export async function fetchDetails({ id }) {
+export async function fetchDetails(id) {
   const response = await axios.get(DETAILS + `${id}`);
-  console.log(response.data);
   return response.data;
 }
