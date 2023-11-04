@@ -1,6 +1,6 @@
-import { useParams } from 'react-router-dom';
+import { Outlet, useParams } from 'react-router-dom';
 import { fetchDetails } from '../../API';
-import { useEffect,useState } from 'react';
+import { Suspense, useEffect,useState } from 'react';
 
 export const MovieDetails = () => {
   const { movieId } = useParams();
@@ -26,19 +26,25 @@ export const MovieDetails = () => {
     console.log(movieInfo);
   }, [])
 
-  cosnt 
+  const {poster_path,title, name, overview,genres, vote_average} = movieInfo;
   
   return (
     <div>
       <div>
-        <img src={`https://image.tmdb.org/t/p/w300${poster}`} alt="" />
+        <img src={`https://image.tmdb.org/t/p/w300${poster_path}`} alt="" />
       </div>
       <div>
-
+        <h2>{title ?? name}</h2>
+        <p>User Score: {vote_average}</p>
+        <h3>Overview</h3>
+        <p>{overview}</p>
+        <h3>Geners</h3>
+        {genres.map(gener=>gener.name).join(" ")}
       </div>
-      <h2></h2>
-      <p></p>
-      <h3></h3>
+      <Suspense>
+        <Outlet/>
+      </Suspense>
+
     </div>
   );
 };
