@@ -41,7 +41,7 @@ export const MovieDetails = () => {
         <h3>Geners</h3>
         {genres.map(gener=>gener.name).join(" ")}
       </div>
-      <Suspense>
+      <Suspense fallback={'LOADING...'}>
         <Outlet/>
       </Suspense>
 
