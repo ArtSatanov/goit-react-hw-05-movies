@@ -1,6 +1,7 @@
-import { Outlet, useParams } from 'react-router-dom';
+import { Link, Outlet, useParams } from 'react-router-dom';
 import { fetchDetails } from '../../API';
-import { Suspense, useEffect,useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
+import { Loader } from 'components/Loader/Loader';
 
 export const MovieDetails = () => {
   const { movieId } = useParams();
@@ -30,16 +31,22 @@ export const MovieDetails = () => {
   
   return (
     <div>
+            {loading && <Loader />}
+
       <div>
         <img src={`https://image.tmdb.org/t/p/w300${poster_path}`} alt="" />
       </div>
       <div>
         <h2>{title ?? name}</h2>
-        <p>User Score: {vote_average}</p>
+        <p>User Score: {vote_average?.toFixed(2)}</p>
         <h3>Overview</h3>
         <p>{overview}</p>
         <h3>Geners</h3>
-        {genres.map(gener=>gener.name).join(" ")}
+        <p>{genres?.map(genre => genre.name).join(" ")}</p>
+      </div>
+      <div>
+        <Link to={'cast'}>Cast</Link>
+        <Link to={'reviews'}>Reviews</Link>
       </div>
       <Suspense fallback={'LOADING...'}>
         <Outlet/>
