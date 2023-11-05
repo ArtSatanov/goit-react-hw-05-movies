@@ -8,7 +8,7 @@ export const MovieDetails = () => {
   const [movieInfo, setMovieInfo] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  
+
   useEffect(() => {
     async function getInfoById() {
       try {
@@ -25,14 +25,14 @@ export const MovieDetails = () => {
     }
     getInfoById();
     console.log(movieInfo);
-  }, [])
+  }, [movieId]);
 
-  const {poster_path,title, name, overview,genres, vote_average} = movieInfo;
-  
+  const { poster_path, title, name, overview, genres, vote_average } =
+    movieInfo;
+
   return (
     <div>
-            {loading && <Loader />}
-
+      {loading && <Loader />}
       <div>
         <img src={`https://image.tmdb.org/t/p/w300${poster_path}`} alt="" />
       </div>
@@ -42,16 +42,15 @@ export const MovieDetails = () => {
         <h3>Overview</h3>
         <p>{overview}</p>
         <h3>Geners</h3>
-        <p>{genres?.map(genre => genre.name).join(" ")}</p>
+        <p>{genres?.map(genre => genre.name).join(' ')}</p>
       </div>
       <div>
         <Link to={'cast'}>Cast</Link>
         <Link to={'reviews'}>Reviews</Link>
       </div>
       <Suspense fallback={'LOADING...'}>
-        <Outlet/>
+        <Outlet />
       </Suspense>
-
     </div>
   );
 };

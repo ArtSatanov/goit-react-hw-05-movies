@@ -17,3 +17,8 @@ export async function fetchDetails(id) {
   const response = await axios.get(DETAILS + `${id}`);
   return response.data;
 }
+
+export async function fetchCredits(id) {
+  const response = await axios.get(DETAILS + `${id}/credits`);
+  return response.data;
+}
