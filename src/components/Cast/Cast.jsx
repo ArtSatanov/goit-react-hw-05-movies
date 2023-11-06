@@ -29,19 +29,20 @@ export const Cast = () => {
   return (
     <div>
       {loading && <Loader />}
-      <ul>
-        {credits.map(credit => (
-          <li>
-            <img
-              src={`https://image.tmdb.org/t/p/w300${credit.profile_path}`}
-              alt={credit.name}
-            />
-            <p>{credit.name}</p>
-            <p>{credit.character}</p>
-          </li>
-        ))}
-        ;
-      </ul>
+      {!error && !loading && (
+        <ul>
+          {credits.map(credit => (
+            <li key={credit.id}>
+              <img
+                src={`https://image.tmdb.org/t/p/w300${credit.profile_path}`}
+                alt={credit.name}
+              />
+              <h3>{credit.name}</h3>
+              <p>{credit.character}</p>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };

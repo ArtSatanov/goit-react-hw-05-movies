@@ -22,3 +22,8 @@ export async function fetchCredits(id) {
   const response = await axios.get(DETAILS + `${id}/credits`);
   return response.data;
 }
+
+export async function fetchReviews(id) {
+  const response = await axios.get(DETAILS + `${id}/reviews`);
+  return response.data;
+}

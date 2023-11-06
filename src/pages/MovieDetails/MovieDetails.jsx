@@ -33,22 +33,31 @@ export const MovieDetails = () => {
   return (
     <div>
       {loading && <Loader />}
-      <div>
-        <img src={`https://image.tmdb.org/t/p/w300${poster_path}`} alt="" />
-      </div>
-      <div>
-        <h2>{title ?? name}</h2>
-        <p>User Score: {vote_average?.toFixed(2)}</p>
-        <h3>Overview</h3>
-        <p>{overview}</p>
-        <h3>Geners</h3>
-        <p>{genres?.map(genre => genre.name).join(' ')}</p>
-      </div>
-      <div>
-        <Link to={'cast'}>Cast</Link>
-        <Link to={'reviews'}>Reviews</Link>
-      </div>
-      <Suspense fallback={'LOADING...'}>
+      {!error && !loading && (
+        <div>
+          <div>
+            {poster_path && (
+              <img
+                src={`https://image.tmdb.org/t/p/w300${poster_path}`}
+                alt={title ?? name}
+              />
+            )}
+          </div>
+          <div>
+            <h2>{title ?? name}</h2>
+            <p>User Score: {vote_average?.toFixed(2)}</p>
+            <h3>Overview</h3>
+            <p>{overview}</p>
+            <h3>Geners</h3>
+            <p>{genres?.map(genre => genre.name).join(' ')}</p>
+          </div>
+          <div>
+            <Link to={'cast'}>Cast</Link>
+            <Link to={'reviews'}>Reviews</Link>
+          </div>
+        </div>
+      )}
+      <Suspense fallback={<Loader />}>
         <Outlet />
       </Suspense>
     </div>
