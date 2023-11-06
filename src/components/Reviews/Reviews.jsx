@@ -33,12 +33,12 @@ export const Reviews = () => {
       {loading && <Loader />}
       {!error && !loading && (
         <ul>
-          {reviews.map(({ content, author, id }) => {
+          {reviews.map(({ content, author, id }) => (
             <li key={id}>
               <h3>Author: {author}</h3>
               <p>{content}</p>
-            </li>;
-          })}
+            </li>
+          ))}
         </ul>
       )}
     </div>
