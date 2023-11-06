@@ -29,8 +29,7 @@ export const Home = () => {
   return (
     <div>
       {loading && <Loader />}
-
-      <MoviesList moviesList={trandingMovies} />
+      {!error && !loading && <MoviesList moviesList={trandingMovies} />}
     </div>
   );
 };

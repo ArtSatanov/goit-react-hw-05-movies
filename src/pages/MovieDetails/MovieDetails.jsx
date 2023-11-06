@@ -24,7 +24,6 @@ export const MovieDetails = () => {
       }
     }
     getInfoById();
-    console.log(movieInfo);
   }, [movieId]);
 
   const { poster_path, title, name, overview, genres, vote_average } =
