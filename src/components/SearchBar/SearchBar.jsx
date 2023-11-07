@@ -7,12 +7,11 @@ import {
 } from './SearchBar.styled';
 import { ImSearch } from 'react-icons/im';
 
-export const SearchBar = ({ onSubmit }) => {
+export const SearchBar = ({ getQuery }) => {
   const handleSubmit = event => {
     event.preventDefault();
-    const myFormData = new FormData(event.currentTarget);
-    const searchData = Object.fromEntries(myFormData);
-    onSubmit(searchData.searchQuery);
+    const value = event.target.elements.searchQuery.value;
+    getQuery({ query: value });
   };
 
   return (

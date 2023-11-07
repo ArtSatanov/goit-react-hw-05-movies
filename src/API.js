@@ -44,8 +44,8 @@ export async function fetchReviews(id, signal) {
   return response.data;
 }
 
-export async function fetchByQuery(query, signal) {
-  const response = await axios.get(`search/movie?query=${query}`, {
+export async function fetchByQuery(queryParams, signal) {
+  const response = await axios.get(`search/movie?query=${queryParams}`, {
     params,
     signal,
   });
