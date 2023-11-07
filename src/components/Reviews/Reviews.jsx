@@ -10,11 +10,12 @@ export const Reviews = () => {
   const [error, setError] = useState(false);
 
   useEffect(() => {
+    const controller = new AbortController();
     async function getReviewsById() {
       try {
         setLoading(true);
         setError(false);
-        const response = await fetchReviews(Number(movieId));
+        const response = await fetchReviews(Number(movieId), controller.signal);
         setReviews(response.results);
         setLoading(false);
       } catch (error) {
@@ -24,6 +25,9 @@ export const Reviews = () => {
       }
     }
     getReviewsById();
+    return () => {
+      controller.abort();
+    };
   }, [movieId]);
 
   console.log(reviews);
@@ -31,7 +35,8 @@ export const Reviews = () => {
   return (
     <div>
       {loading && <Loader />}
-      {!error && !loading && (
+      {error && <p>Info has not founded, choose please another movies</p>}
+      {!loading && (
         <ul>
           {reviews.map(({ content, author, id }) => (
             <li key={id}>

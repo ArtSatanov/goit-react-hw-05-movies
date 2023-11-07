@@ -10,11 +10,13 @@ export const MovieDetails = () => {
   const [error, setError] = useState(false);
 
   useEffect(() => {
+    const controller = new AbortController();
+
     async function getInfoById() {
       try {
         setLoading(true);
         setError(false);
-        const response = await fetchDetails(Number(movieId));
+        const response = await fetchDetails(Number(movieId), controller.signal);
         setMovieInfo(response);
         setLoading(false);
       } catch (error) {
@@ -24,6 +26,10 @@ export const MovieDetails = () => {
       }
     }
     getInfoById();
+
+    return () => {
+      controller.abort();
+    };
   }, [movieId]);
 
   const { poster_path, title, name, overview, genres, vote_average } =
@@ -32,7 +38,8 @@ export const MovieDetails = () => {
   return (
     <div>
       {loading && <Loader />}
-      {!error && !loading && (
+      {error && <p>Movie has not founded, choose please another movies</p>}
+      {!loading && (
         <div>
           <div>
             {poster_path && (

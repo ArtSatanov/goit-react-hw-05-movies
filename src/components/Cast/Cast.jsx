@@ -10,11 +10,12 @@ export const Cast = () => {
   const [error, setError] = useState(false);
 
   useEffect(() => {
+    const controller = new AbortController();
     async function getCreditsById() {
       try {
         setLoading(true);
         setError(false);
-        const response = await fetchCredits(Number(movieId));
+        const response = await fetchCredits(Number(movieId), controller.signal);
         setCredits(response.cast);
         setLoading(false);
       } catch (error) {
@@ -24,12 +25,17 @@ export const Cast = () => {
       }
     }
     getCreditsById();
+
+    return () => {
+      controller.abort();
+    };
   }, [movieId]);
 
   return (
     <div>
       {loading && <Loader />}
-      {!error && !loading && (
+      {error && <p>Info has not founded, choose please another movies</p>}
+      {!loading && (
         <ul>
           {credits.map(credit => (
             <li key={credit.id}>

@@ -9,12 +9,13 @@ export const Home = () => {
   const [error, setError] = useState(false);
 
   useEffect(() => {
+    const controller = new AbortController();
     async function getMovies() {
       try {
         setLoading(true);
         setError(false);
 
-        const response = await fetchTrending();
+        const response = await fetchTrending(controller.signal);
         setTreandingMovies(response);
         setLoading(false);
       } catch (error) {
@@ -24,12 +25,16 @@ export const Home = () => {
       }
     }
     getMovies();
+    return () => {
+      controller.abort();
+    };
   }, []);
 
   return (
     <div>
       {loading && <Loader />}
-      {!error && !loading && <MoviesList moviesList={trandingMovies} />}
+      {error && <p>Please, reload the page</p>}
+      {!loading && <MoviesList moviesList={trandingMovies} />}
     </div>
   );
 };
