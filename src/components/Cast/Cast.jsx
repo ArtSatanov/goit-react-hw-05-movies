@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { fetchCredits } from '../../API';
 import { Loader } from 'components/Loader/Loader';
+import { Error } from 'components/Error/Error';
 
 export const Cast = () => {
   const { movieId } = useParams();
@@ -19,9 +20,10 @@ export const Cast = () => {
         setCredits(response.cast);
         setLoading(false);
       } catch (error) {
-        if (error !== 'ERR_CANCELLED') {
+        if (error.code !== 'ERR_CANCELED') {
           setError(true);
         }
+        console.log(error.code);
       }
     }
     getCreditsById();
@@ -30,11 +32,12 @@ export const Cast = () => {
       controller.abort();
     };
   }, [movieId]);
+  console.log(error);
 
   return (
     <div>
       {loading && <Loader />}
-      {error && <p>Info has not founded, choose please another movies</p>}
+      {error && <Error msg={'Cast has not been found'} />}
       {!loading && (
         <ul>
           {credits.map(credit => (

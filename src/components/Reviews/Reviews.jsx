@@ -19,7 +19,7 @@ export const Reviews = () => {
         setReviews(response.results);
         setLoading(false);
       } catch (error) {
-        if (error !== 'ERR_CANCELLED') {
+        if (error.code !== 'ERR_CANCELED') {
           setError(true);
         }
       }

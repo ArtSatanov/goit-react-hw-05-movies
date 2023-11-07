@@ -1,6 +1,6 @@
 import { MoviesItem } from 'components/MovieItem/MovieItem';
 
-export const MoviesList = ({ moviesList }) => {
+export const MoviesList = ({ moviesList, location }) => {
   return (
     <div>
       <ul>
@@ -10,6 +10,7 @@ export const MoviesList = ({ moviesList }) => {
               id={resp.id}
               title={resp.title ?? resp.name}
               poster={resp.backdrop_path}
+              location={location}
             />
           </li>
         ))}

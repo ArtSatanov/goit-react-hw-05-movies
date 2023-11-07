@@ -2,8 +2,10 @@ import { MoviesList } from 'components/MoviesList/MoviesList';
 import { fetchTrending } from '../../API';
 import { useEffect, useState } from 'react';
 import { Loader } from 'components/Loader/Loader';
+import { useLocation } from 'react-router-dom';
 
 export const Home = () => {
+  const location = useLocation();
   const [trandingMovies, setTreandingMovies] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -19,7 +21,7 @@ export const Home = () => {
         setTreandingMovies(response);
         setLoading(false);
       } catch (error) {
-        if (error.code !== 'ERR_CANCELLED') {
+        if (error.code !== 'ERR_CANCELED') {
           setError(true);
         }
       }
@@ -34,7 +36,9 @@ export const Home = () => {
     <div>
       {loading && <Loader />}
       {error && <p>Please, reload the page</p>}
-      {!loading && <MoviesList moviesList={trandingMovies} />}
+      {!loading && (
+        <MoviesList moviesList={trandingMovies} location={location} />
+      )}
     </div>
   );
 };

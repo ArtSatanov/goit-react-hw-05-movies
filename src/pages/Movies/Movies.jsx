@@ -1,3 +1,9 @@
+import { SearchBar } from 'components/SearchBar/SearchBar';
+
 export const Movies = () => {
-  return <div>5</div>;
+  return (
+    <div>
+      <SearchBar />
+    </div>
+  );
 };

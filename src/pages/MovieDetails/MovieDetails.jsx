@@ -1,13 +1,15 @@
-import { Link, Outlet, useParams } from 'react-router-dom';
+import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
 import { fetchDetails } from '../../API';
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import { Loader } from 'components/Loader/Loader';
 
 export const MovieDetails = () => {
+  const location = useLocation();
   const { movieId } = useParams();
   const [movieInfo, setMovieInfo] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const refLocation = useRef(location.state?.from ?? '/');
 
   useEffect(() => {
     const controller = new AbortController();
@@ -20,7 +22,7 @@ export const MovieDetails = () => {
         setMovieInfo(response);
         setLoading(false);
       } catch (error) {
-        if (error !== 'ERR_CANCELLED') {
+        if (error.code !== 'ERR_CANCELED') {
           setError(true);
         }
       }
@@ -35,8 +37,11 @@ export const MovieDetails = () => {
   const { poster_path, title, name, overview, genres, vote_average } =
     movieInfo;
 
+  console.log(refLocation);
+
   return (
     <div>
+      <Link to={refLocation.current}>GO BACK </Link>
       {loading && <Loader />}
       {error && <p>Movie has not founded, choose please another movies</p>}
       {!loading && (
