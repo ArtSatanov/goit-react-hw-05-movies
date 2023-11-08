@@ -2,6 +2,12 @@ import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
 import { fetchDetails } from '../../API';
 import { Suspense, useEffect, useRef, useState } from 'react';
 import { Loader } from 'components/Loader/Loader';
+import {
+  GoBack,
+  GoBackBtn,
+  Container,
+  ContainerMovieInfo,
+} from './MovieDetails.styled';
 
 const MovieDetails = () => {
   const location = useLocation();
@@ -38,28 +44,36 @@ const MovieDetails = () => {
     movieInfo;
 
   return (
-    <div>
-      <Link to={refLocation.current}>GO BACK </Link>
+    <Container>
+      <GoBack>
+        <Link to={refLocation.current}>
+          <GoBackBtn>GO BACK</GoBackBtn>
+        </Link>
+      </GoBack>
+
       {loading && <Loader />}
       {error && <p>Movie has not founded, choose please another movies</p>}
       {!loading && (
         <div>
-          <div>
-            {poster_path && (
-              <img
-                src={`https://image.tmdb.org/t/p/w300${poster_path}`}
-                alt={title ?? name}
-              />
-            )}
-          </div>
-          <div>
-            <h2>{title ?? name}</h2>
-            <p>User Score: {vote_average?.toFixed(2)}</p>
-            <h3>Overview</h3>
-            <p>{overview}</p>
-            <h3>Geners</h3>
-            <p>{genres?.map(genre => genre.name).join(' ')}</p>
-          </div>
+          <ContainerMovieInfo>
+            <div>
+              {poster_path && (
+                <img
+                  src={`https://image.tmdb.org/t/p/w300${poster_path}`}
+                  alt={title ?? name}
+                />
+              )}
+            </div>
+            <div>
+              <h2>{title ?? name}</h2>
+              <p>User Score: {vote_average?.toFixed(2)}</p>
+              <h3>Overview</h3>
+              <p>{overview}</p>
+              <h3>Geners</h3>
+              <p>{genres?.map(genre => genre.name).join(' ')}</p>
+            </div>
+          </ContainerMovieInfo>
+
           <div>
             <Link to={'cast'}>Cast</Link>
             <Link to={'reviews'}>Reviews</Link>
@@ -69,7 +83,7 @@ const MovieDetails = () => {
       <Suspense fallback={<Loader />}>
         <Outlet />
       </Suspense>
-    </div>
+    </Container>
   );
 };
 
