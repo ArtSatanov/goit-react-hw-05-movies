@@ -42,6 +42,7 @@ const Movies = () => {
       controller.abort();
     };
   }, [searchParams]);
+  console.log(movies);
 
   return (
     <div>

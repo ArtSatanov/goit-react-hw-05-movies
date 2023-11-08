@@ -1,20 +1,21 @@
 import { MoviesItem } from 'components/MovieItem/MovieItem';
+import { ImageGalleryItemLi, ImageGalleryUl } from './MoviesList.styled';
 
 export const MoviesList = ({ moviesList, location }) => {
   return (
     <div>
-      <ul>
+      <ImageGalleryUl>
         {moviesList.map(resp => (
-          <li key={resp.id}>
+          <ImageGalleryItemLi key={resp.id}>
             <MoviesItem
               id={resp.id}
               title={resp.title ?? resp.name}
               poster={resp.backdrop_path}
               location={location}
             />
-          </li>
+          </ImageGalleryItemLi>
         ))}
-      </ul>
+      </ImageGalleryUl>
     </div>
   );
 };
