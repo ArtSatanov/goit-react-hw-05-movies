@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Loader } from 'components/Loader/Loader';
 import { useLocation } from 'react-router-dom';
 
-export const Home = () => {
+const Home = () => {
   const location = useLocation();
   const [trandingMovies, setTreandingMovies] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -42,3 +42,5 @@ export const Home = () => {
     </div>
   );
 };
+
+export default Home;

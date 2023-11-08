@@ -3,7 +3,7 @@ import { fetchDetails } from '../../API';
 import { Suspense, useEffect, useRef, useState } from 'react';
 import { Loader } from 'components/Loader/Loader';
 
-export const MovieDetails = () => {
+const MovieDetails = () => {
   const location = useLocation();
   const { movieId } = useParams();
   const [movieInfo, setMovieInfo] = useState([]);
@@ -74,3 +74,5 @@ export const MovieDetails = () => {
     </div>
   );
 };
+
+export default MovieDetails;

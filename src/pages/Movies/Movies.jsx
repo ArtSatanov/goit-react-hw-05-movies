@@ -5,7 +5,7 @@ import { fetchByQuery } from '../../API';
 import { Loader } from 'components/Loader/Loader';
 import { MoviesList } from 'components/MoviesList/MoviesList';
 
-export const Movies = () => {
+const Movies = () => {
   const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
   const [loading, setLoading] = useState(false);
@@ -51,3 +51,5 @@ export const Movies = () => {
     </div>
   );
 };
+
+export default Movies;
