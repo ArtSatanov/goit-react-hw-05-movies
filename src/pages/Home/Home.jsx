@@ -3,6 +3,7 @@ import { fetchTrending } from '../../API';
 import { useEffect, useState } from 'react';
 import { Loader } from 'components/Loader/Loader';
 import { useLocation } from 'react-router-dom';
+import { Error } from 'components/Error/Error';
 
 const Home = () => {
   const location = useLocation();
@@ -35,8 +36,8 @@ const Home = () => {
   return (
     <div>
       {loading && <Loader />}
-      {error && <p>Please, reload the page</p>}
-      {!loading && (
+      {error && <Error msg={'Please, reload the page'} />}
+      {!loading && !error && (
         <MoviesList moviesList={trandingMovies} location={location} />
       )}
     </div>

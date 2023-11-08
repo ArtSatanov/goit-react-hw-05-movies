@@ -37,8 +37,6 @@ const MovieDetails = () => {
   const { poster_path, title, name, overview, genres, vote_average } =
     movieInfo;
 
-  console.log(refLocation);
-
   return (
     <div>
       <Link to={refLocation.current}>GO BACK </Link>

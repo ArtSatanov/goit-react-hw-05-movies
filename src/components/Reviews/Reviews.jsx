@@ -2,8 +2,9 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { fetchReviews } from '../../API';
 import { Loader } from 'components/Loader/Loader';
+import { Error } from 'components/Error/Error';
 
-export const Reviews = () => {
+const Reviews = () => {
   const { movieId } = useParams();
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -30,13 +31,14 @@ export const Reviews = () => {
     };
   }, [movieId]);
 
-  console.log(reviews);
-
   return (
     <div>
       {loading && <Loader />}
-      {error && <p>Info has not founded, choose please another movies</p>}
-      {!loading && (
+      {error && (
+        <Error msg={'Info has not founded, choose please another movies.'} />
+      )}
+      {reviews.length === 0 && <Error msg={"There's no reviews yet."} />}
+      {!loading && !error && (
         <ul>
           {reviews.map(({ content, author, id }) => (
             <li key={id}>
@@ -49,3 +51,5 @@ export const Reviews = () => {
     </div>
   );
 };
+
+export default Reviews;

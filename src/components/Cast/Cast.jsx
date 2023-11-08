@@ -4,7 +4,7 @@ import { fetchCredits } from '../../API';
 import { Loader } from 'components/Loader/Loader';
 import { Error } from 'components/Error/Error';
 
-export const Cast = () => {
+const Cast = () => {
   const { movieId } = useParams();
   const [credits, setCredits] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -23,7 +23,6 @@ export const Cast = () => {
         if (error.code !== 'ERR_CANCELED') {
           setError(true);
         }
-        console.log(error.code);
       }
     }
     getCreditsById();
@@ -32,13 +31,15 @@ export const Cast = () => {
       controller.abort();
     };
   }, [movieId]);
-  console.log(error);
+
+  console.log(credits);
 
   return (
     <div>
       {loading && <Loader />}
       {error && <Error msg={'Cast has not been found'} />}
-      {!loading && (
+      {credits.length === 0 && <Error msg={'Cast has not been found'} />}
+      {!loading && !error && (
         <ul>
           {credits.map(credit => (
             <li key={credit.id}>
@@ -58,3 +59,5 @@ export const Cast = () => {
     </div>
   );
 };
+
+export default Cast;

@@ -4,6 +4,7 @@ import { useLocation, useSearchParams } from 'react-router-dom';
 import { fetchByQuery } from '../../API';
 import { Loader } from 'components/Loader/Loader';
 import { MoviesList } from 'components/MoviesList/MoviesList';
+import { Error } from 'components/Error/Error';
 
 const Movies = () => {
   const location = useLocation();
@@ -46,8 +47,11 @@ const Movies = () => {
     <div>
       <SearchBar getQuery={setSearchParams} />
       {loading && <Loader />}
-      {error && <p>Please, reload the page</p>}
-      {!loading && <MoviesList moviesList={movies} location={location} />}
+      {error && <Error msg={'Please, reload the page'} />}
+      {movies.length === 0 && <Error msg={'Please, change serach query.'} />}
+      {!loading && !error && (
+        <MoviesList moviesList={movies} location={location} />
+      )}
     </div>
   );
 };
