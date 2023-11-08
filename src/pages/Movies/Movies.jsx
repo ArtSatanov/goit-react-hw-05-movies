@@ -12,6 +12,7 @@ const Movies = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [movies, setMovies] = useState([]);
+  const [noResults, setNoResults] = useState(false);
 
   useEffect(() => {
     const queryParams = searchParams.get('query');
@@ -29,6 +30,11 @@ const Movies = () => {
         const response = await fetchByQuery(queryParams, controller.signal);
         setMovies(response.results);
         setLoading(false);
+        if (response.results.length === 0) {
+          setNoResults(true);
+        } else {
+          setNoResults(false);
+        }
       } catch (error) {
         if (error.code !== 'ERR_CANCELED') {
           setError(true);
@@ -42,14 +48,13 @@ const Movies = () => {
       controller.abort();
     };
   }, [searchParams]);
-  console.log(movies);
 
   return (
     <div>
       <SearchBar getQuery={setSearchParams} />
       {loading && <Loader />}
       {error && <Error msg={'Please, reload the page'} />}
-      {movies.length === 0 && <Error msg={'Please, change serach query.'} />}
+      {noResults && <Error msg={'Please, change serach query.'} />}
       {!loading && !error && (
         <MoviesList moviesList={movies} location={location} />
       )}

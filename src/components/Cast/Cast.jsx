@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { fetchCredits } from '../../API';
 import { Loader } from 'components/Loader/Loader';
 import { Error } from 'components/Error/Error';
+import { CastUl, CastItemLi, CastItemImage } from './Cast.styled';
 
 const Cast = () => {
   const { movieId } = useParams();
@@ -32,19 +33,17 @@ const Cast = () => {
     };
   }, [movieId]);
 
-  console.log(credits);
-
   return (
     <div>
       {loading && <Loader />}
       {error && <Error msg={'Cast has not been found'} />}
       {credits.length === 0 && <Error msg={'Cast has not been found'} />}
       {!loading && !error && (
-        <ul>
+        <CastUl>
           {credits.map(credit => (
-            <li key={credit.id}>
+            <CastItemLi key={credit.id}>
               {credit.profile_path && (
-                <img
+                <CastItemImage
                   src={`https://image.tmdb.org/t/p/w300${credit.profile_path}`}
                   alt={credit.name}
                 />
@@ -52,9 +51,9 @@ const Cast = () => {
 
               <h3>{credit.name}</h3>
               <p>{credit.character}</p>
-            </li>
+            </CastItemLi>
           ))}
-        </ul>
+        </CastUl>
       )}
     </div>
   );

@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 
-export const GoBackBtn = styled.span`
+export const Btn = styled.span`
   padding: 8px 16px;
   border-radius: 2px;
   background-color: #3f51b5;
@@ -41,6 +41,17 @@ export const Container = styled.div`
 export const ContainerMovieInfo = styled.div`
   display: flex;
   align-items: left;
+  justify-content: left;
+  gap: 25px;
+  margin-bottom: 15px;
+`;
+
+export const ContainerMovieDetails = styled.div`
+  display: flex;
+  flex-direction: column;
+  max-width: 70%;
+  align-items: left;
+
   justify-content: left;
   gap: 25px;
 `;
